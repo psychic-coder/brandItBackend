@@ -1,17 +1,27 @@
+// routes/quizRoutes.js
 import express from "express";
 import {
-  createQuiz,
-  getQuizById,
-  listQuizzes,
+  getQuizzesBySubject,
+  getQuizMetadata,
+  getAllQuizQuestions,
+  getQuestionByIndex,
+  submitAnswer,
   submitQuiz,
+  getUserResult,
+  createQuizWithQuestions,
+
 } from "../controllers/quiz.controller.js";
 
 const router = express.Router();
 
-router.post("/", createQuiz);           // Create a new quiz
-router.get("/:id", getQuizById);        // Get a quiz by ID
-router.get("/", listQuizzes);           // List all quizzes
-router.post("/submit", submitQuiz);     // Submit a quiz and track progress
+router.get("/subject/:subject", getQuizzesBySubject);
+router.get("/:quizId", getQuizMetadata);
+router.get("/:quizId/questions", getAllQuizQuestions);
+router.get("/:quizId/questions/:index", getQuestionByIndex);
+router.post("/:quizId/questions/:index/answer", submitAnswer);
+router.post("/:quizId/submit", submitQuiz);
+router.get("/:quizId/result/:userId", getUserResult);
+router.post("/", createQuizWithQuestions); 
 
 
 export default router;
